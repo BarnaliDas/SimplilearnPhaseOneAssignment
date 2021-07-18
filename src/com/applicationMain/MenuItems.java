@@ -17,8 +17,8 @@ public class MenuItems {
 		userOperations.put(2, "Perform Business Operations");
 		userOperations.put(3, "Exit Application");
 		userBusinessOperations.put(4, "Add File into the Directory");
-		userBusinessOperations.put(5, "Search File from the Directory");
-		userBusinessOperations.put(6, "Delete File from the Directory");
+		userBusinessOperations.put(5, "Delete File from the Directory");
+		userBusinessOperations.put(6, "Search File from the Directory");
 		userBusinessOperations.put(7, "Return to Main Menu");
 		
 	}
