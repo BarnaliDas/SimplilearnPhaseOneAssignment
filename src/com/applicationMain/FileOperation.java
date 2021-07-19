@@ -1,32 +1,67 @@
 package com.applicationMain;
 
 import java.io.*;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class FileOperation {
-	 Set<File> fileList = new TreeSet<File>();
-	 String [] filename=null;
-	
+	// List<File> fileList = new ArrayList<File>();
+	 List<FileOperation> FileOpp= new ArrayList<FileOperation>();
+	//List<String> filename=new ArrayList<String>();
+	Float filesize;
+	String fileName;
+	FileOperation(){
+		
+	}
+	 FileOperation(Float filesize, String fileName){
+		 this.filesize=filesize;
+		 this.fileName=fileName;
+	 }
+	 
+	@Override
+public String toString() {
+	return  fileName ;
+}
 
+	public List<FileOperation> createFileObjects(String directory){
+		List<FileOperation> fileArray = new ArrayList<FileOperation>();
+		try {
+			final File folder = new File(directory);
+				    File[] filesInFolder = folder.listFiles();
+				    if (filesInFolder != null && filesInFolder.length>0 ) {
+				        for (final File fileEntry : filesInFolder) {
+				          
+				        	if(fileEntry.isFile()) { 
+				          //  fileList.add(fileEntry);
+				        	fileName=fileEntry.getName();
+				        	filesize=(float) fileEntry.getTotalSpace();
+				        	fileArray.add(new FileOperation(filesize, fileName));
+				        	}
+				     }
+				    }else {
+				    	System.out.println("No files to show within the directory:"+directory);
+				    }
+			  
+			}catch(NullPointerException ne){
+				System.out.println("Invalid Directory");
+				
+			}
+				 
+				   
+		return fileArray;
+	}
+	public List<FileOperation> sortFiles(List<FileOperation>FileOpp1) {
+	Collections.sort(FileOpp, new sortByFileName());
+	 return FileOpp;
+	}
 	public void displaySortedFiles(String directory) {
 		try {
-		final File folder = new File(directory);
-			    File[] filesInFolder = folder.listFiles();
-			    if (filesInFolder != null && filesInFolder.length>0 ) {
-			        for (final File fileEntry : filesInFolder) {
-			          
-			        	if(fileEntry.isFile()) 
-			            fileList.add(fileEntry);
-			           
-			     }
-			    }else {
-			    	System.out.println("No files to show within the directory:"+directory);
-			    }
-			    
-			 for(File f:fileList) {
-				 System.out.println(f.getName());
-			 }
+			FileOpp=createFileObjects(directory);
+			FileOpp=(List<FileOperation>) sortFiles(FileOpp);
+		       
+		        for (int i = 0; i < FileOpp.size(); i++)
+		            System.out.println(FileOpp.get(i));
+		  
+		  
 		}catch(NullPointerException ne){
 			System.out.println("Invalid Directory");
 			
@@ -110,5 +145,13 @@ public class FileOperation {
 			 }
 
 		
+class sortByFileName implements Comparator<FileOperation>{
 
+	@Override
+	public int compare(FileOperation o1, FileOperation o2) {
+		// TODO Auto-generated method stub
+		return o1.fileName.compareTo(o2.fileName);
+	}
+	
+}
 
