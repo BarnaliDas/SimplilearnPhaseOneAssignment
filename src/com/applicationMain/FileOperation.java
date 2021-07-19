@@ -50,8 +50,9 @@ public String toString() {
 		return fileArray;
 	}
 	public List<FileOperation> sortFiles(List<FileOperation>FileOpp1) {
-	Collections.sort(FileOpp, new sortByFileName());
-	 return FileOpp;
+		
+	Collections.sort(FileOpp1, new sortByFileName());
+	 return FileOpp1;
 	}
 	public void displaySortedFiles(String directory) {
 		try {
